@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神椿觀測所：你的靈魂共鳴者</title>
+    <style>
+        :root {
+            --kaf: #f48fb1;
+            --rim: #c5e1a5;
+            --haru: #ffab91;
+            --iseye: #b39ddb;
+            --koko: #90caf9;
+            --ciel: #81d4fa;
+            --aru: #fdf5e6;
+            --asu: #ffd54f;
+            --bg-color: #0d0d14;
+            --text-color: #eeeeee;
+            --container-bg: #1a1a24;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #2a2a3a 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, #161622 0%, transparent 50%);
+        }
+
+        #quiz-container {
+            background-color: var(--container-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .logo-text {
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        #question-box, #result-box {
+            display: none;
+        }
+
+        .progress {
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background-color: #222230;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 16px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .option-btn:hover {
+            background-color: #333344;
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 12px 40px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .result-name {
+            font-size: 34px;
+            font-weight: bold;
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .result-desc {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #ddd;
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border-left: 4px solid currentColor;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="logo-text">KAMITSUBAKI STUDIO</div>
+    
+    <div id="intro-box">
+        <h1>神椿人格觀測測驗</h1>
+        <div class="subtitle">將透過 10 個情境分析，<br>尋找神椿市中與你靈魂最共鳴的歌聲。</div>
+        <button class="btn-primary" onclick="startQuiz()">開始觀測</button>
+    </div>
+
+    <div id="question-box">
+        <div class="progress" id="progress">觀測進度 1 / 10</div>
+        <div class="question-text" id="question-text"></div>
+        <div id="options-container"></div>
+    </div>
+
+    <div id="result-box">
+        <h2>觀測完畢，你的靈魂共鳴者是...</h2>
+        <div class="result-name" id="result-name"></div>
+        <div class="result-desc" id="result-desc"></div>
+        <button class="btn-primary" onclick="restartQuiz()">再次觀測</button>
+    </div>
+</div>
+
+<script>
+    // 精心設計的10題，每題4個選項，確保8位成員每人總共會出現剛好 5 次。
+    const questions = [
+        {
+            question: "Q1. 放假時的早晨，你通常會怎麼度過？",
+            options: [
+                { text: "出門漫無目的地散步，靜靜觀察街景。", member: "kaf" },
+                { text: "睡到自然醒，然後悠閒地去找好吃的。", member: "rim" },
+                { text: "早起去運動或鍛鍊，讓身體充滿活力！", member: "haru" },
+                { text: "馬上聯絡朋友，準備出門大玩特玩！", member: "asu" }
+            ]
+        },
+        {
+            question: "Q2. 哪種視覺美學最能吸引你的目光？",
+            options: [
+                { text: "哥德風、廢墟與暗黑奇幻的元素。", member: "iseye" },
+                { text: "俐落的黑白灰，帶有科技感與閃電。", member: "koko" },
+                { text: "清澈的藍天白雲，充滿透明感的色彩。", member: "ciel" },
+                { text: "純白無瑕、輕柔如羽毛般的夢幻空間。", member: "aru" }
+            ]
+        },
+        {
+            question: "Q3. 遇到巨大壓力或心情低落時，你會？",
+            options: [
+                { text: "感受這份痛苦，把它寫下來或轉化為文字/歌聲。", member: "kaf" },
+                { text: "切換視角，把煩惱丟進自己幻想的宇宙裡。", member: "iseye" },
+                { text: "把不甘心化作動力，咬牙正面迎擊！", member: "haru" },
+                { text: "躲進自己的安全區，安靜地聽音樂療癒自己。", member: "aru" }
+            ]
+        },
+        {
+            question: "Q4. 在朋友團體中，你通常扮演什麼角色？",
+            options: [
+                { text: "氣氛製造者，隨性自在，大家跟你相處沒壓力。", member: "rim" },
+                { text: "穩重可靠的大姊姊/大哥，大家都會找你拿主意。", member: "koko" },
+                { text: "溫和的調停者，不愛衝突，總是用溫柔包容大家。", member: "ciel" },
+                { text: "充滿幹勁的發起人，總是第一個喊著要出去玩。", member: "asu" }
+            ]
+        },
+        {
+            question: "Q5. 如果能進入虛擬世界，你希望那裡是？",
+            options: [
+                { text: "被海水淹沒一半，帶著憂鬱氣息的寂靜都市。", member: "kaf" },
+                { text: "與現實相似，但帶點不可思議與時尚感的平行街頭。", member: "rim" },
+                { text: "有著魔法、機械、人偶與城堡的童話世界。", member: "iseye" },
+                { text: "一望無際的大草原與沒有盡頭的藍天。", member: "ciel" }
+            ]
+        },
+        {
+            question: "Q6. 哪種音樂風格最對你的胃口？",
+            options: [
+                { text: "節奏強烈、歌詞直白且充滿爆發力的 Rap / Hip-hop。", member: "haru" },
+                { text: "吉他與鼓點炸裂，帥氣且情緒高昂的搖滾樂。", member: "koko" },
+                { text: "空靈、低語般輕柔，能讓人平靜的環境音樂 (ASMR)。", member: "aru" },
+                { text: "節奏輕快、讓人忍不住想跟著跳舞的電子流行樂。", member: "asu" }
+            ]
+        },
+        {
+            question: "Q7. 面對過去的「回憶」，你的態度是？",
+            options: [
+                { text: "無論悲傷或快樂，都是構成現在的我的重要詩篇。", member: "kaf" },
+                { text: "回憶是基石，但我更專注於開拓未來的道路。", member: "koko" },
+                { text: "偶爾會溫柔地回味，但我會一直朝著明天看。", member: "ciel" },
+                { text: "把它們當作寶石一樣，小心翼翼地藏在心底深處。", member: "aru" }
+            ]
+        },
+        {
+            question: "Q8. 如果要送禮物給重要的人，你會選擇？",
+            options: [
+                { text: "帶他去我私藏的愛店，請他吃一頓大餐。", member: "rim" },
+                { text: "實用帥氣的東西，或是陪他一起去挑戰新體驗。", member: "haru" },
+                { text: "我自己親手畫的圖，或是手工製作的工藝品。", member: "iseye" },
+                { text: "一場超級驚喜的派對，或者鮮豔可愛的小物！", member: "asu" }
+            ]
+        },
+        {
+            question: "Q9. 當你參加一個多人的聚會時，你通常？",
+            options: [
+                { text: "坐在角落，靜靜觀察大家的互動。", member: "kaf" },
+                { text: "看到不熟的人有點害羞，但聊開了就很熱情。", member: "haru" },
+                { text: "帶著溫和的微笑聽大家說話，適時給予回應。", member: "ciel" },
+                { text: "滿場飛！主動去認識新朋友，帶動全場氣氛。", member: "asu" }
+            ]
+        },
+        {
+            question: "Q10. 如果能擁有一種魔法或超能力，你希望是？",
+            options: [
+                { text: "能夠自由穿梭不同空間和維度的能力。", member: "rim" },
+                { text: "只要畫出來的東西，就能變成現實的能力。", member: "iseye" },
+                { text: "能夠操控雷電與光，照亮黑暗的能力。", member: "koko" },
+                { text: "能夠消除重力，讓自己和物品漂浮的能力。", member: "aru" }
+            ]
+        }
+    ];
+
+    const results = {
+        kaf: { name: "花譜 (KAF)", color: "var(--kaf)", desc: "你擁有極其豐富細膩的情感。你善於觀察世界，這份敏感讓你擁有獨一無二的共情能力。你不擅長大聲喧嘩，卻能用自己的方式溫暖他人，對世界永遠保持著一份如詩般的純粹。" },
+        rim: { name: "理芽 (RIM)", color: "var(--rim)", desc: "你隨性、自在，充滿透明感與酷感。你不喜歡被框架束縛，總是按照自己的節奏生活。你的性格中帶著一種街頭的灑脫，即便遇到困難，也能用一句「順其自然」來輕鬆化解。" },
+        haru: { name: "春猿火 (HARUSARUHI)", color: "var(--haru)", desc: "你外表看起來可能很酷，但內心卻充滿熱血與溫柔！你擁有強大的爆發力，對待朋友和喜歡的事物總是全力以赴。你是那種能給人帶來前進力量、像風暴一般耀眼的存在。" },
+        iseye: { name: "ヰ世界情緒 (ISEKAIJOUCHO)", color: "var(--iseye)", desc: "你是個充滿創造力的藝術家。你的腦海中裝著一個廣闊的暗黑奇幻宇宙。你性格溫柔內斂，但在展現你的才華或談論你熱愛的事物時，會散發出無與倫比的光芒。" },
+        koko: { name: "幸祜 (KOKO)", color: "var(--koko)", desc: "你是大家眼中最可靠的存在。你擁有酷帥俐落的氣質，做事有條理且獨立。雖然外表有些高冷，但其實非常重感情，你不喜歡輕易示弱，是充滿魅力的領袖型人物。" },
+        ciel: { name: "CIEL (シエル)", color: "var(--ciel)", desc: "你擁有如青空般清澈、溫柔的靈魂。你嚮往自由，不喜歡與人爭執。你總能用溫和的態度撫平他人的焦躁，即使面對迷惘，你也會帶著淡淡的微笑繼續向前走，充滿療癒力量。" },
+        aru: { name: "存流 (ARU)", color: "var(--aru)", desc: "你輕柔、內斂，帶著一種夢幻的透明感。你喜歡安靜的空間，心思細密且溫柔。雖然存在感不強烈，但對於懂你的人來說，你是一個能讓人徹底放鬆、安心停靠的避風港。" },
+        asu: { name: "明透 (ASU)", color: "var(--asu)", desc: "你開朗、充滿活力，宛如一顆閃閃發光的小太陽！你性格直率，充滿著好奇心與行動力。你的情緒感染力極強，不害怕展現真實的自己，總是邁著輕快的步伐享受生活。" }
+    };
+
+    let currentQuestion = 0;
+    let scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0 };
+
+    // 隨機打亂陣列順序的函數 (Fisher-Yates Shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function startQuiz() {
+        document.getElementById('intro-box').style.display = 'none';
+        document.getElementById('question-box').style.display = 'block';
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('progress').innerText = `觀測進度 ${currentQuestion + 1} / 10`;
+        document.getElementById('question-text').innerText = q.question;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        // 複製一份選項並打亂順序
+        let shuffledOptions = shuffleArray([...q.options]);
+        
+        shuffledOptions.forEach(option => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = option.text;
+            btn.onclick = () => selectOption(option.member);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(member) {
+        scores[member]++;
+        currentQuestion++;
+        
+        if (currentQuestion < questions.length) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('question-box').style.display = 'none';
+        document.getElementById('result-box').style.display = 'block';
+
+        let highestScore = 0;
+        let resultMember = '';
+        
+        // 找出最高分的成員
+        for (const member in scores) {
+            if (scores[member] > highestScore) {
+                highestScore = scores[member];
+                resultMember = member;
+            }
+        }
+
+        const resultData = results[resultMember];
+        
+        const nameElement = document.getElementById('result-name');
+        nameElement.innerText = resultData.name;
+        nameElement.style.color = resultData.color;
+        
+        // 存流的顏色較淺，增加文字陰影避免看不清楚
+        if(resultMember === 'aru') {
+            nameElement.style.textShadow = "0 0 10px rgba(255,255,255,0.5), 1px 1px 2px rgba(0,0,0,0.8)";
+        } else {
+            nameElement.style.textShadow = `0 0 15px ${resultData.color}`;
+        }
+        
+        // 改變左側邊框顏色以匹配角色
+        document.getElementById('result-desc').style.borderColor = resultData.color;
+        document.getElementById('result-desc').innerText = resultData.desc;
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0 };
+        document.getElementById('result-box').style.display = 'none';
+        document.getElementById('intro-box').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
