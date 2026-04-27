@@ -3,7 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>神椿觀測所：你的靈魂共鳴者</title>
+    
+    <!-- ========================================== -->
+    <!-- 🌟 Discord / 社群媒體 Embed Meta 標籤開始 🌟 -->
+    <!-- ========================================== -->
+    
+    <!-- 網頁標題 -->
+    <title>神椿觀測所：你的靈魂共鳴者是誰？</title>
+    
+    <!-- 基礎 Meta -->
+    <meta name="description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。花譜、理芽、春猿火、情緒、幸祜、CIEL、存流、明透，你更像誰？">
+    <meta name="theme-color" content="#1a1a24"> <!-- Discord 預覽卡片左側的顏色條 (這裡使用深色系) -->
+
+    <!-- Open Graph (Discord, Facebook, Line 適用) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://你的網站網址.com/"> <!-- 替換成你發佈後的真實網址 -->
+    <meta property="og:title" content="神椿觀測所：你的靈魂共鳴者測驗">
+    <meta property="og:description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。V.W.P、CIEL、Albemuth，誰才是你的共鳴者？">
+    <!-- ⬇️ 這裡換成你想要顯示的預覽圖網址 (建議比例 16:9) ⬇️ -->
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Kamitsubaki_Studio_logo.svg/1200px-Kamitsubaki_Studio_logo.svg.png"> 
+
+    <!-- Twitter Card (Discord 也會作為備用讀取，確保顯示大圖) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="神椿觀測所：你的靈魂共鳴者測驗">
+    <meta name="twitter:description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。">
+    <!-- ⬇️ 這裡換成跟上面一樣的預覽圖網址 ⬇️ -->
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Kamitsubaki_Studio_logo.svg/1200px-Kamitsubaki_Studio_logo.svg.png">
+
+    <!-- ========================================== -->
+    <!-- 🌟 Discord Embed Meta 標籤結束 🌟          -->
+    <!-- ========================================== -->
+
     <style>
         :root {
             --kaf: #f48fb1;
@@ -175,7 +205,6 @@
 </div>
 
 <script>
-    // 精心設計的10題，每題4個選項，確保8位成員每人總共會出現剛好 5 次。
     const questions = [
         {
             question: "Q1. 放假時的早晨，你通常會怎麼度過？",
@@ -283,7 +312,6 @@
     let currentQuestion = 0;
     let scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0 };
 
-    // 隨機打亂陣列順序的函數 (Fisher-Yates Shuffle)
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -306,7 +334,6 @@
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         
-        // 複製一份選項並打亂順序
         let shuffledOptions = shuffleArray([...q.options]);
         
         shuffledOptions.forEach(option => {
@@ -336,7 +363,6 @@
         let highestScore = 0;
         let resultMember = '';
         
-        // 找出最高分的成員
         for (const member in scores) {
             if (scores[member] > highestScore) {
                 highestScore = scores[member];
@@ -350,14 +376,12 @@
         nameElement.innerText = resultData.name;
         nameElement.style.color = resultData.color;
         
-        // 存流的顏色較淺，增加文字陰影避免看不清楚
         if(resultMember === 'aru') {
             nameElement.style.textShadow = "0 0 10px rgba(255,255,255,0.5), 1px 1px 2px rgba(0,0,0,0.8)";
         } else {
             nameElement.style.textShadow = `0 0 15px ${resultData.color}`;
         }
         
-        // 改變左側邊框顏色以匹配角色
         document.getElementById('result-desc').style.borderColor = resultData.color;
         document.getElementById('result-desc').innerText = resultData.desc;
     }
