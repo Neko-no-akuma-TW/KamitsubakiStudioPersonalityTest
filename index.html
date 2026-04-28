@@ -5,37 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- ========================================== -->
+    <!-- 網站 Favicon (瀏覽器分頁圖標) -->
+    <link rel="icon" href="https://cdn.kamitsubaki.qzz.io/images/kamitsubaki_icon.png" type="image/png">
+    <!-- ========================================== -->
+
+    <!-- ========================================== -->
     <!-- 🌟 Discord / 社群媒體 Embed Meta 標籤開始 🌟 -->
     <!-- ========================================== -->
+    <title>神椿觀測所：你的靈魂共鳴者測驗</title>
     
-    <!-- 網頁標題 -->
-    <title>神椿觀測所：你的靈魂共鳴者是誰？</title>
-    
-    <!-- 基礎 Meta -->
-    <meta name="description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。花譜、理芽、春猿火、情緒、幸祜、CIEL、存流、明透，你更像誰？">
-    <meta name="theme-color" content="#1a1a24"> <!-- Discord 預覽卡片左側的顏色條 (這裡使用深色系) -->
+    <meta name="description" content="尋找神椿市中與你靈魂最共鳴的歌聲。包含 V.W.P、CIEL、Albemuth 以及 少女革命計畫（心世紀、罪十罰）總計 14 名成員的分析結果。">
+    <meta name="theme-color" content="#1a1a24"> 
 
-    <!-- Open Graph (Discord, Facebook, Line 適用) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://你的網站網址.com/"> <!-- 替換成你發佈後的真實網址 -->
+    <meta property="og:url" content="https://你的網站網址.com/"> 
     <meta property="og:title" content="神椿觀測所：你的靈魂共鳴者測驗">
-    <meta property="og:description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。V.W.P、CIEL、Albemuth，誰才是你的共鳴者？">
-    <!-- ⬇️ 這裡換成你想要顯示的預覽圖網址 (建議比例 16:9) ⬇️ -->
+    <meta property="og:description" content="透過 14 個情境分析，尋找神椿宇宙中與你靈魂最共鳴的虛擬少女。">
     <meta property="og:image" content="https://cdn.kamitsubaki.qzz.io/images/kamitsubaki_icon.png"> 
 
-    <!-- Twitter Card (Discord 也會作為備用讀取，確保顯示大圖) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="神椿觀測所：你的靈魂共鳴者測驗">
-    <meta name="twitter:description" content="透過 10 個情境分析，尋找神椿市中與你靈魂最共鳴的虛擬歌手。">
-    <!-- ⬇️ 這裡換成跟上面一樣的預覽圖網址 ⬇️ -->
+    <meta name="twitter:description" content="透過 14 個情境分析，尋找神椿宇宙中與你靈魂最共鳴的虛擬少女。">
     <meta name="twitter:image" content="https://cdn.kamitsubaki.qzz.io/images/kamitsubaki_icon.png">
-
     <!-- ========================================== -->
     <!-- 🌟 Discord Embed Meta 標籤結束 🌟          -->
     <!-- ========================================== -->
 
     <style>
         :root {
+            /* 神椿既有成員代表色 */
             --kaf: #f48fb1;
             --rim: #c5e1a5;
             --haru: #ffab91;
@@ -44,6 +42,17 @@
             --ciel: #81d4fa;
             --aru: #fdf5e6;
             --asu: #ffd54f;
+            
+            /* 心世紀 3名成員專屬代表色 (未來/希望/亮色系) */
+            --kakyoin: #00d2d3;   /* 佳鏡院 */
+            --orihime: #ff9ff3;   /* 御莉姫 */
+            --garasumiya: #feca57;/* 硝子宮 */
+            
+            /* 罪十罰 3名成員專屬代表色 (破壞/反叛/暗色系) */
+            --mikoto: #ff4757;    /* 美古途 */
+            --yunagi: #5f27cd;    /* 夕凪機 */
+            --hinageshi: #2f3542; /* 氷夏至 */
+            
             --bg-color: #0d0d14;
             --text-color: #eeeeee;
             --container-bg: #1a1a24;
@@ -75,12 +84,12 @@
             position: relative;
         }
 
-        .logo-text {
-            font-size: 10px;
-            letter-spacing: 4px;
-            color: #666;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
         h1 {
@@ -92,8 +101,20 @@
         .subtitle {
             color: #aaa;
             font-size: 14px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.5;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #888;
+            background-color: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 3px solid #666;
+            text-align: left;
+            line-height: 1.4;
         }
 
         #question-box, #result-box {
@@ -118,17 +139,17 @@
         #options-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .option-btn {
             background-color: #222230;
             color: #fff;
             border: 1px solid #444;
-            padding: 16px 20px;
+            padding: 15px 20px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             transition: all 0.3s ease;
             text-align: left;
             line-height: 1.4;
@@ -160,14 +181,14 @@
         }
 
         .result-name {
-            font-size: 34px;
+            font-size: 32px;
             font-weight: bold;
             margin: 20px 0;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .result-desc {
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.8;
             color: #ddd;
             text-align: left;
@@ -182,16 +203,21 @@
 <body>
 
 <div id="quiz-container">
-    <div class="logo-text">KAMITSUBAKI STUDIO</div>
+    <img src="https://cdn.kamitsubaki.qzz.io/images/kamitsubaki_icon.png" alt="Logo" class="logo-img">
     
     <div id="intro-box">
         <h1>神椿人格觀測測驗</h1>
-        <div class="subtitle">將透過 10 個情境分析，<br>尋找神椿市中與你靈魂最共鳴的歌聲。</div>
+        <div class="subtitle">將透過 14 個情境分析，尋找宇宙中與你靈魂最共鳴的虛擬少女。<br>（包含 V.W.P、Albemuth、CIEL 以及 少女革命計畫）</div>
+        
+        <div class="disclaimer">
+            ※ 觀測者注意事項：本網站為粉絲製作之互動測驗，並非由 KAMITSUBAKI STUDIO (神椿工作室) 官方所經營。
+        </div>
+
         <button class="btn-primary" onclick="startQuiz()">開始觀測</button>
     </div>
 
     <div id="question-box">
-        <div class="progress" id="progress">觀測進度 1 / 10</div>
+        <div class="progress" id="progress">觀測進度 1 / 14</div>
         <div class="question-text" id="question-text"></div>
         <div id="options-container"></div>
     </div>
@@ -205,10 +231,11 @@
 </div>
 
 <script>
-    const questions = [
+    // 完美分配：14人 x 每人出現4次 = 56個選項，分在14題中。
+    const questions =[
         {
             question: "Q1. 放假時的早晨，你通常會怎麼度過？",
-            options: [
+            options:[
                 { text: "出門漫無目的地散步，靜靜觀察街景。", member: "kaf" },
                 { text: "睡到自然醒，然後悠閒地去找好吃的。", member: "rim" },
                 { text: "早起去運動或鍛鍊，讓身體充滿活力！", member: "haru" },
@@ -217,7 +244,7 @@
         },
         {
             question: "Q2. 哪種視覺美學最能吸引你的目光？",
-            options: [
+            options:[
                 { text: "哥德風、廢墟與暗黑奇幻的元素。", member: "iseye" },
                 { text: "俐落的黑白灰，帶有科技感與閃電。", member: "koko" },
                 { text: "清澈的藍天白雲，充滿透明感的色彩。", member: "ciel" },
@@ -225,80 +252,117 @@
             ]
         },
         {
-            question: "Q3. 遇到巨大壓力或心情低落時，你會？",
-            options: [
-                { text: "感受這份痛苦，把它寫下來或轉化為文字/歌聲。", member: "kaf" },
-                { text: "切換視角，把煩惱丟進自己幻想的宇宙裡。", member: "iseye" },
-                { text: "把不甘心化作動力，咬牙正面迎擊！", member: "haru" },
-                { text: "躲進自己的安全區，安靜地聽音樂療癒自己。", member: "aru" }
+            question: "Q3. 遇到巨大壓力或面對阻礙時，你會？",
+            options:[
+                { text: "保持閃耀的笑容，相信美好的未來一定能克服它。", member: "kakyoin" },
+                { text: "和夥伴們分擔痛苦，把大家的心連結在一起。", member: "orihime" },
+                { text: "打破那些不合理的規則！用行動粉碎阻礙！", member: "mikoto" },
+                { text: "擁抱這份痛苦，把它當作屬於我的「懲罰」與力量。", member: "yunagi" }
             ]
         },
         {
             question: "Q4. 在朋友團體中，你通常扮演什麼角色？",
-            options: [
-                { text: "氣氛製造者，隨性自在，大家跟你相處沒壓力。", member: "rim" },
-                { text: "穩重可靠的大姊姊/大哥，大家都會找你拿主意。", member: "koko" },
-                { text: "溫和的調停者，不愛衝突，總是用溫柔包容大家。", member: "ciel" },
-                { text: "充滿幹勁的發起人，總是第一個喊著要出去玩。", member: "asu" }
+            options:[
+                { text: "把大家帶向新時代的超級氣氛製造者！", member: "garasumiya" },
+                { text: "絕不原諒任何傷害我朋友的人，強悍的守護者。", member: "hinageshi" },
+                { text: "心思細膩的傾聽者，能察覺別人忽略的情緒。", member: "kaf" },
+                { text: "隨性自在，大家跟你相處起來毫無壓力。", member: "rim" }
             ]
         },
         {
             question: "Q5. 如果能進入虛擬世界，你希望那裡是？",
-            options: [
-                { text: "被海水淹沒一半，帶著憂鬱氣息的寂靜都市。", member: "kaf" },
-                { text: "與現實相似，但帶點不可思議與時尚感的平行街頭。", member: "rim" },
+            options:[
+                { text: "充滿全息投影與霓虹燈的高科技都會。", member: "haru" },
                 { text: "有著魔法、機械、人偶與城堡的童話世界。", member: "iseye" },
+                { text: "廣闊的宇宙競技場，充滿星辰與光芒。", member: "koko" },
                 { text: "一望無際的大草原與沒有盡頭的藍天。", member: "ciel" }
             ]
         },
         {
             question: "Q6. 哪種音樂風格最對你的胃口？",
-            options: [
-                { text: "節奏強烈、歌詞直白且充滿爆發力的 Rap / Hip-hop。", member: "haru" },
-                { text: "吉他與鼓點炸裂，帥氣且情緒高昂的搖滾樂。", member: "koko" },
-                { text: "空靈、低語般輕柔，能讓人平靜的環境音樂 (ASMR)。", member: "aru" },
-                { text: "節奏輕快、讓人忍不住想跟著跳舞的電子流行樂。", member: "asu" }
+            options:[
+                { text: "輕柔空靈的音樂，宛如在耳邊低語。", member: "aru" },
+                { text: "節奏輕快、讓人忍不住想跟著跳舞的流行樂。", member: "asu" },
+                { text: "充滿情感、穿梭於現實與虛擬之間的新世代流行樂。", member: "kakyoin" },
+                { text: "嘶吼出對世界的不滿、極具攻擊性的硬核搖滾舞曲。", member: "mikoto" }
             ]
         },
         {
             question: "Q7. 面對過去的「回憶」，你的態度是？",
-            options: [
-                { text: "無論悲傷或快樂，都是構成現在的我的重要詩篇。", member: "kaf" },
-                { text: "回憶是基石，但我更專注於開拓未來的道路。", member: "koko" },
-                { text: "偶爾會溫柔地回味，但我會一直朝著明天看。", member: "ciel" },
-                { text: "把它們當作寶石一樣，小心翼翼地藏在心底深處。", member: "aru" }
+            options:[
+                { text: "珍藏那些溫暖的片刻，用它們來治癒現在的自己。", member: "orihime" },
+                { text: "把它們拋在腦後！我們要全速衝刺向新世紀！", member: "garasumiya" },
+                { text: "那些黑暗的記憶，是我華麗背負著的「罪」。", member: "yunagi" },
+                { text: "過去的不甘與懊悔，是我用來制裁現在的武器。", member: "hinageshi" }
             ]
         },
         {
             question: "Q8. 如果要送禮物給重要的人，你會選擇？",
-            options: [
+            options:[
+                { text: "一封親筆寫的長信，寫滿我的感受。", member: "kaf" },
                 { text: "帶他去我私藏的愛店，請他吃一頓大餐。", member: "rim" },
                 { text: "實用帥氣的東西，或是陪他一起去挑戰新體驗。", member: "haru" },
-                { text: "我自己親手畫的圖，或是手工製作的工藝品。", member: "iseye" },
-                { text: "一場超級驚喜的派對，或者鮮豔可愛的小物！", member: "asu" }
+                { text: "我自己親手畫的圖，或是手工製作的工藝品。", member: "iseye" }
             ]
         },
         {
             question: "Q9. 當你參加一個多人的聚會時，你通常？",
-            options: [
-                { text: "坐在角落，靜靜觀察大家的互動。", member: "kaf" },
-                { text: "看到不熟的人有點害羞，但聊開了就很熱情。", member: "haru" },
+            options:[
+                { text: "確保每個人都被照顧到，自然地掌控全場節奏。", member: "koko" },
                 { text: "帶著溫和的微笑聽大家說話，適時給予回應。", member: "ciel" },
+                { text: "靜靜待在舒適的角落，享受自己的步調。", member: "aru" },
                 { text: "滿場飛！主動去認識新朋友，帶動全場氣氛。", member: "asu" }
             ]
         },
         {
-            question: "Q10. 如果能擁有一種魔法或超能力，你希望是？",
-            options: [
-                { text: "能夠自由穿梭不同空間和維度的能力。", member: "rim" },
-                { text: "只要畫出來的東西，就能變成現實的能力。", member: "iseye" },
-                { text: "能夠操控雷電與光，照亮黑暗的能力。", member: "koko" },
-                { text: "能夠消除重力，讓自己和物品漂浮的能力。", member: "aru" }
+            question: "Q10. 如果能擁有一種魔法，你希望是？",
+            options:[
+                { text: "能讓所有人的夢想與希望都具象化的魔法。", member: "kakyoin" },
+                { text: "能夠理解他人痛苦，將彼此心靈相連的魔法。", member: "orihime" },
+                { text: "能夠毀滅那些虛偽與不公不義之事的魔法。", member: "mikoto" },
+                { text: "能夠施展充滿危險與誘惑的暗黑幻境魔法。", member: "yunagi" }
+            ]
+        },
+        {
+            question: "Q11. 對於「改變世界 / 革命」，你的想法是？",
+            options:[
+                { text: "用最歡樂的節奏和科技，掀起一場開心的革命！", member: "garasumiya" },
+                { text: "即使伴隨痛苦，也要無情地揭露這世界的真相。", member: "hinageshi" },
+                { text: "透過詩與歌聲，在無形之中引起人們的共鳴。", member: "kaf" },
+                { text: "不刻意改變什麼，順其自然也是一種態度。", member: "rim" }
+            ]
+        },
+        {
+            question: "Q12. 最吸引你的舞台表演形式是？",
+            options:[
+                { text: "充滿力量、節奏與帥氣 Rap 的爆發舞台。", member: "haru" },
+                { text: "宛如音樂劇般華麗且充滿戲劇張力的演出。", member: "iseye" },
+                { text: "帶領全場一起狂歡、帥氣的搖滾舞台。", member: "koko" },
+                { text: "一把吉他，清澈透亮且純粹的歌聲。", member: "ciel" }
+            ]
+        },
+        {
+            question: "Q13. 哪種歌詞或話語最能打動你？",
+            options:[
+                { text: "像是深夜裡的低語，輕輕觸碰內心最柔軟的地方。", member: "aru" },
+                { text: "直接、坦率，充滿陽光般的直白話語。", member: "asu" },
+                { text: "「我們一起創造全新的時代吧！」的閃耀宣言。", member: "kakyoin" },
+                { text: "「我會背負著這些罪惡，打破這個鳥籠！」的反叛之聲。", member: "mikoto" }
+            ]
+        },
+        {
+            question: "Q14. 對於未來的想像，你覺得？",
+            options:[
+                { text: "一個溫柔的世界，所有人的心都能互相理解。", member: "orihime" },
+                { text: "充滿無限可能的新科技與電子音符的耀眼未來！", member: "garasumiya" },
+                { text: "一個即使充滿瑕疵與罪惡，卻依然美麗的反烏托邦。", member: "yunagi" },
+                { text: "絕不向「正確」妥協，一條由我們自己制裁出的道路。", member: "hinageshi" }
             ]
         }
     ];
 
     const results = {
+        // === V.W.P & Albemuth & CIEL ===
         kaf: { name: "花譜 (KAF)", color: "var(--kaf)", desc: "你擁有極其豐富細膩的情感。你善於觀察世界，這份敏感讓你擁有獨一無二的共情能力。你不擅長大聲喧嘩，卻能用自己的方式溫暖他人，對世界永遠保持著一份如詩般的純粹。" },
         rim: { name: "理芽 (RIM)", color: "var(--rim)", desc: "你隨性、自在，充滿透明感與酷感。你不喜歡被框架束縛，總是按照自己的節奏生活。你的性格中帶著一種街頭的灑脫，即便遇到困難，也能用一句「順其自然」來輕鬆化解。" },
         haru: { name: "春猿火 (HARUSARUHI)", color: "var(--haru)", desc: "你外表看起來可能很酷，但內心卻充滿熱血與溫柔！你擁有強大的爆發力，對待朋友和喜歡的事物總是全力以赴。你是那種能給人帶來前進力量、像風暴一般耀眼的存在。" },
@@ -306,11 +370,49 @@
         koko: { name: "幸祜 (KOKO)", color: "var(--koko)", desc: "你是大家眼中最可靠的存在。你擁有酷帥俐落的氣質，做事有條理且獨立。雖然外表有些高冷，但其實非常重感情，你不喜歡輕易示弱，是充滿魅力的領袖型人物。" },
         ciel: { name: "CIEL (シエル)", color: "var(--ciel)", desc: "你擁有如青空般清澈、溫柔的靈魂。你嚮往自由，不喜歡與人爭執。你總能用溫和的態度撫平他人的焦躁，即使面對迷惘，你也會帶著淡淡的微笑繼續向前走，充滿療癒力量。" },
         aru: { name: "存流 (ARU)", color: "var(--aru)", desc: "你輕柔、內斂，帶著一種夢幻的透明感。你喜歡安靜的空間，心思細密且溫柔。雖然存在感不強烈，但對於懂你的人來說，你是一個能讓人徹底放鬆、安心停靠的避風港。" },
-        asu: { name: "明透 (ASU)", color: "var(--asu)", desc: "你開朗、充滿活力，宛如一顆閃閃發光的小太陽！你性格直率，充滿著好奇心與行動力。你的情緒感染力極強，不害怕展現真實的自己，總是邁著輕快的步伐享受生活。" }
+        asu: { name: "明透 (ASU)", color: "var(--asu)", desc: "你開朗、充滿活力，宛如一顆閃閃發光的小太陽！你性格直率，充滿著好奇心與行動力。你的情緒感染力極強，不害怕展現真實的自己，總是邁著輕快的步伐享受生活。" },
+        
+        // ==========================================
+        // 🌟 少女革命計畫 - 心世紀 (SHINSEIKI) 🌟
+        // ==========================================
+        kakyoin: { 
+            name: "佳鏡院 (KAKYOIN) - 心世紀",  
+            color: "var(--kakyoin)", 
+            desc: "你的靈魂與「心世紀」的佳鏡院產生了強烈的共鳴！作為穿梭於現實與虛擬的 Xtuber 組合的一員，你擁有閃耀的特質，總能給人帶來希望。你嚮往光明的未來，不害怕挑戰未知，是能夠引領眾人一起邁向新時代的閃亮存在。" 
+        },
+        orihime: { 
+            name: "御莉姫 (ORIHIME) - 心世紀",  
+            color: "var(--orihime)", 
+            desc: "你的靈魂與「心世紀」的御莉姫產生了溫柔的共鳴！你擁有極強的共情能力，非常重視人與人之間的「連結」。你溫暖的性格就像是團隊中的黏著劑，能夠輕易治癒他人的心靈，在虛擬與現實的交界傳遞愛與希望。" 
+        },
+        garasumiya: { 
+            name: "硝子宮 (GARASUMIYA) - 心世紀",  
+            color: "var(--garasumiya)", 
+            desc: "你的靈魂與「心世紀」的硝子宮產生了活力的共鳴！你充滿熱情，討厭一成不變的事物。你帶有強烈的流行感與電子節奏般的衝勁，總是用最開朗的態度向未來全速衝刺，為世界帶來嶄新的心世紀革命！" 
+        },
+
+        // ==========================================
+        // 🌟 少女革命計畫 - 罪十罰 (ZAITOBATSU) 🌟
+        // ==========================================
+        mikoto: { 
+            name: "美古途 (MIKOTO) - 罪十罰",  
+            color: "var(--mikoto)", 
+            desc: "你的靈魂與「罪十罰」的美古途產生了叛逆的共鳴！如同從虛擬世界的深淵傳遞歌聲的使者，你的內心住著一個不羈的靈魂。你討厭虛偽的規則，遇到不公的事情會毫不猶豫地挺身而出，是用破壞與攻擊性舞曲來創造新生的反叛者。" 
+        },
+        yunagi: { 
+            name: "夕凪機 (YUNAGI) - 罪十罰",  
+            color: "var(--yunagi)", 
+            desc: "你的靈魂與「罪十罰」的夕凪機產生了幽暗的共鳴！你帶有神秘、暗黑的氣質，不介意展現自己的脆弱或背負「罪惡的烙印」。你認為不完美才是最真實的美，散發著讓人難以抗拒的深淵魅力。" 
+        },
+        hinageshi: { 
+            name: "氷夏至 (HINAGESHI) - 罪十罰",  
+            color: "var(--hinageshi)", 
+            desc: "你的靈魂與「罪十罰」的氷夏至產生了強悍的共鳴！你是極端護短、重情重義的存在。為了保護自己重視的事物，你願意化身為制裁者。這份帶刺的溫柔與不妥協的態度，是你最強大的武器。" 
+        }
     };
 
     let currentQuestion = 0;
-    let scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0 };
+    let scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0, kakyoin: 0, orihime: 0, garasumiya: 0, mikoto: 0, yunagi: 0, hinageshi: 0 };
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -328,7 +430,7 @@
 
     function showQuestion() {
         const q = questions[currentQuestion];
-        document.getElementById('progress').innerText = `觀測進度 ${currentQuestion + 1} / 10`;
+        document.getElementById('progress').innerText = `觀測進度 ${currentQuestion + 1} / 14`;
         document.getElementById('question-text').innerText = q.question;
         
         const optionsContainer = document.getElementById('options-container');
@@ -376,8 +478,9 @@
         nameElement.innerText = resultData.name;
         nameElement.style.color = resultData.color;
         
-        if(resultMember === 'aru') {
-            nameElement.style.textShadow = "0 0 10px rgba(255,255,255,0.5), 1px 1px 2px rgba(0,0,0,0.8)";
+        // 針對淺色系文字增加黑底陰影
+        if(resultMember === 'aru' || resultMember === 'ciel' || resultMember === 'kakyoin' || resultMember === 'garasumiya') {
+            nameElement.style.textShadow = "0 0 10px rgba(255,255,255,0.4), 2px 2px 5px rgba(0,0,0,0.9)";
         } else {
             nameElement.style.textShadow = `0 0 15px ${resultData.color}`;
         }
@@ -388,7 +491,9 @@
 
     function restartQuiz() {
         currentQuestion = 0;
-        scores = { kaf: 0, rim: 0, haru: 0, iseye: 0, koko: 0, ciel: 0, aru: 0, asu: 0 };
+        for (let key in scores) {
+            scores[key] = 0;
+        }
         document.getElementById('result-box').style.display = 'none';
         document.getElementById('intro-box').style.display = 'block';
     }
